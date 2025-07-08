@@ -4,6 +4,7 @@ import Note from "../Models/noteModel.js";
 export const createNote = async (req, res) => {
   try {
     // Create a new note using the request body
+    console.log("Incoming request body:", req.body);
     const note = await Note.create(req.body);
     
     // If the note is created successfully, return it
