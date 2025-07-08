@@ -3,17 +3,20 @@ import Note from "../Models/noteModel.js";
 
 export const createNote = async (req, res) => {
   try {
-    // Create a new note using the request body
-    console.log("Incoming request body:", req.body);
-    const note = await Note.create(req.body);
-    
-    // If the note is created successfully, return it
+    const { title, content } = req.body;
+
+    if (!title || !content) {
+      return res.status(400).json({ error: "Title and content are required" });
+    }
+
+    const note = await Note.create({ title, content });
     res.status(201).json(note);
   } catch (error) {
-    console.log("Error in createNote controller: ", error);
+    console.error("Error in createNote controller: ", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 
 export const getNotes = async (req, res) => {
