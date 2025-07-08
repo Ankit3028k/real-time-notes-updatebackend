@@ -14,7 +14,11 @@ const io = new Server(server, {
 });
 
 dotenv.config();
-app.use(cors());
+app.use(cors({
+  origin: '*',         // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Optional: allow specific HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'] // Optional: allow specific headers
+}));
 app.use(express.json());
 
 app.get("/", (req, res) => {
